@@ -47,9 +47,13 @@ public class EmployeeDataBase {
             String sqlQuery = String.format("SELECT * FROM employee WHERE id_work_unit=%d", workUnitId);
             ResultSet resultSet = statement.executeQuery(sqlQuery);
             if (resultSet.next()) {
-                while (resultSet.next()) {
-                    System.out.println(resultSet.getString("first_name"));
-                }
+                System.out.println("---------- Employees in work unit "+workUnitId+" ----------");
+
+                do {
+                    System.out.println(resultSet.getString(1)+" "+resultSet.getString(2)+" "+resultSet.getString(3)+" "+resultSet.getString(4)+" ");
+                } while (resultSet.next());
+                System.out.println("----------------------------------------------");
+
             } else {
                 System.out.println("there aren't any thing to show ! ");
 
