@@ -101,10 +101,13 @@ public class WorkUnitDataBase {
             String sqlQuery = String.format("SELECT * FROM work_unit");
             ResultSet resultSet = statement.executeQuery(sqlQuery);
             if (resultSet.next()) {
-                while (resultSet.next()) {
-                    System.out.println(resultSet.getString("name"));
+                System.out.println("----------  work units  ----------");
 
-                }
+                do{
+                    System.out.println(resultSet.getString(1)+" "+resultSet.getString(2)+" "+resultSet.getString(3)+" "+resultSet.getString(4) );
+
+                }while (resultSet.next());
+                System.out.println("-----------------------------------");
 
             } else {
                 System.out.println("there aren't any thing to show ! ");
