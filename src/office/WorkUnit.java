@@ -1,16 +1,18 @@
 package office;
 
-import office.Employee;
-
 public class WorkUnit {
     private int id;
-    private  String name;
-    private  String phoneNumber;
-    private Employee[] employees=new  Employee[100];
-    private  int indexEmployees=0;
+    private String name;
+    private String phoneNumber;
+    public String[] idEmployees = new String[100];
+    public int indexEmployees = 0;
 
-    public WorkUnit(int id, String name, String phoneNumber) {
+    public void setId(int id) {
         this.id = id;
+    }
+
+    public WorkUnit(String name, String phoneNumber) {
+
         this.name = name;
         this.phoneNumber = phoneNumber;
 
@@ -28,11 +30,20 @@ public class WorkUnit {
         return phoneNumber;
     }
 
-    public String getEmployees() {
-       String listEmployees="";
-       for(int i=0;i<indexEmployees;i++){
-           listEmployees+=employees[i].getId()+",";
-       }
+    public String getIdEmployees() {
+        String listEmployees = "";
+        for (int i = 0; i < indexEmployees; i++) {
+            listEmployees += idEmployees[i]+ ",";
+        }
         return listEmployees;
+    }
+    public void setIdEmployees(String listEmployee){
+        String [] temp =listEmployee.split(",");
+        for(int i=0; i<temp.length;i++){
+            this.idEmployees[indexEmployees++]=temp[i];
+        }
+
+
+
     }
 }
