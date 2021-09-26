@@ -26,10 +26,10 @@ public class WorkUnitDataBase {
         }
     }
 
-    public int updateWorkUnitInformation(WorkUnit workUnit) throws SQLException {
+    public int updateWorkUnitInformation(String name,int id) throws SQLException {
         if (connection != null) {
             Statement statement = connection.createStatement();
-            String sqlQuery = String.format("UPDATE work_unit SET name='%s' WHERE id_work_unit=%d", workUnit.getName(), workUnit.getId());
+            String sqlQuery = String.format("UPDATE work_unit SET name='%s' WHERE id_work_unit=%d", name, id);
             int i = statement.executeUpdate(sqlQuery);
             return i;
 

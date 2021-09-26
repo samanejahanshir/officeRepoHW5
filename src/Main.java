@@ -175,8 +175,33 @@ public class Main {
         }
     }
 
-    public static void updateWorkUnit() {
+    public static void updateWorkUnit() throws SQLException {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("id employee :");
+        String idWorkUnit = scanner.next();
+        if (CheckValidation.checkInt(idWorkUnit)){
+            if(workUnitDataBase.searchWorkUnitId(Integer.parseInt(idWorkUnit))){
+                System.out.println("name :");
+                String name = scanner.next();
+                if(CheckValidation.checkString(name)){
+                   if (workUnitDataBase.updateWorkUnitInformation(name,Integer.parseInt(idWorkUnit))!=0){
+                       System.out.println("update was successfully");
+                   }else {
+                       System.out.println("update was failed !");
 
+                   }
+                }else {
+                    System.out.println("enter valid name please !");
+
+                }
+            }else {
+                System.out.println("work unit not found !");
+
+            }
+        }else {
+            System.out.println("enter number id please !");
+
+        }
     }
 
     public static void showWorkUnit() {
