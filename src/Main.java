@@ -36,7 +36,10 @@ public class Main {
 
         boolean exit = false;
         while (exit == false) {
+            System.out.println("------------------ Menu -----------------");
             System.out.println("1.add employee\n2.add work unit\n3.update employee\n4.update work unit\n5.show work unit\n6.show employee\n7.exit");
+            System.out.println("-----------------------------------------");
+
             Scanner scanner = new Scanner(System.in);
             String selectNumberMenu = scanner.next();
             if (CheckValidation.checkInt(selectNumberMenu)) {
