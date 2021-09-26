@@ -9,6 +9,10 @@ public class Employee {
     private  String birthDate;
     private  int workUnit_id;
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public Employee(String firstName, String lastName, String personalId, String birthDate, int workUnit_id) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -40,4 +44,5 @@ public class Employee {
     public int getWorkUnit_id() {
         return workUnit_id;
     }
+
 }
