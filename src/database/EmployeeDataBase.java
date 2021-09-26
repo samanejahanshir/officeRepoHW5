@@ -16,19 +16,23 @@ public class EmployeeDataBase {
         if (connection != null) {
             Statement statement = connection.createStatement();
             String sqlQuery = String.format("INSERT INTO employee (first_name , last_name , personal_number , birth_date , id_work_unit) VALUES ('%s','%s','%s','%s',%d)",
-                     employee.getFirstName(), employee.getLastName(), employee.getPersonalId(), employee.getBirthDate(), employee.getWorkUnit_id());
+                    employee.getFirstName(), employee.getLastName(), employee.getPersonalId(), employee.getBirthDate(), employee.getWorkUnit_id());
             int i = statement.executeUpdate(sqlQuery);
-            return i;
-
+            if (i != 0) {
+                int id = searchEmployee(employee.getFirstName(), employee.getLastName(), employee.getPersonalId());
+                return id;
+            }else {
+                return 0;
+            }
         } else {
             return 0;
         }
     }
 
-    public int updateEmployeeInformation(Employee employee) throws SQLException {
+    public int updateEmployeeInformation(String firstName, String lastName, int id) throws SQLException {
         if (connection != null) {
             Statement statement = connection.createStatement();
-            String sqlQuery = String.format("UPDATE employee SET first_name='%s' , last_name='%s' WHERE id_employee=%d", employee.getFirstName(), employee.getLastName(), employee.getId());
+            String sqlQuery = String.format("UPDATE employee SET first_name='%s' , last_name='%s' WHERE id_employee=%d", firstName, lastName, id);
             int i = statement.executeUpdate(sqlQuery);
             return i;
 
@@ -55,5 +59,35 @@ public class EmployeeDataBase {
 
         }
 
+    }
+
+    public boolean searchEmployee(int idEmployee) throws SQLException {
+        if (connection != null) {
+            Statement statement = connection.createStatement();
+            String sqlQuery = String.format("SELECT id_employee FROM employee WHERE id_employee=%d", idEmployee);
+            ResultSet resultSet = statement.executeQuery(sqlQuery);
+            if (resultSet.next()) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    public int searchEmployee(String firstName, String lastName, String personalId) throws SQLException {
+        if (connection != null) {
+            Statement statement = connection.createStatement();
+            String sqlQuery = String.format("SELECT id_employee FROM employee WHERE first_name='%s' && last_name='%s' && personal_number='%s' ", firstName, lastName, personalId);
+            ResultSet resultSet = statement.executeQuery(sqlQuery);
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            } else {
+                return 0;
+            }
+        } else {
+            return 0;
+        }
     }
 }
