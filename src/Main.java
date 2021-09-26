@@ -99,9 +99,9 @@ public class Main {
                     employee.setId(id);
                     System.out.println("add employee was successfully");
                     workUnits = workUnitDataBase.returnWorkUnit();
-                    for(int i=0;i<workUnits.length;i++){
-                        if(workUnits[i].getId()==Integer.parseInt(workUnitId)){
-                            workUnits[i].setIdEmployees(id+"");
+                    for (int i = 0; i < workUnits.length; i++) {
+                        if (workUnits[i].getId() == Integer.parseInt(workUnitId)) {
+                            workUnits[i].setIdEmployees(id + "");
                             workUnitDataBase.updateListEmployee(workUnits[i]);
                             break;
                         }
@@ -154,15 +154,15 @@ public class Main {
                 String firstName = scanner.next();
                 System.out.println("last name : ");
                 String lastName = scanner.next();
-                if(CheckValidation.checkString(firstName)&& CheckValidation.checkString(lastName)) {
-                    if(employeeDataBase.updateEmployeeInformation(firstName,lastName,Integer.parseInt(idEmployee))!=0){
+                if (CheckValidation.checkString(firstName) && CheckValidation.checkString(lastName)) {
+                    if (employeeDataBase.updateEmployeeInformation(firstName, lastName, Integer.parseInt(idEmployee)) != 0) {
                         System.out.println(" update employee was successfully");
 
-                    }else {
+                    } else {
                         System.out.println(" update employee was failed !");
 
                     }
-                }else {
+                } else {
                     System.out.println("enter current name please !");
 
                 }
@@ -170,45 +170,57 @@ public class Main {
                 System.out.println("this employee not found !");
             }
 
-        }else {
+        } else {
             System.out.println("enter number please !");
         }
     }
 
     public static void updateWorkUnit() throws SQLException {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("id employee :");
+        System.out.println("id work unit :");
         String idWorkUnit = scanner.next();
-        if (CheckValidation.checkInt(idWorkUnit)){
-            if(workUnitDataBase.searchWorkUnitId(Integer.parseInt(idWorkUnit))){
+        if (CheckValidation.checkInt(idWorkUnit)) {
+            if (workUnitDataBase.searchWorkUnitId(Integer.parseInt(idWorkUnit))) {
                 System.out.println("name :");
                 String name = scanner.next();
-                if(CheckValidation.checkString(name)){
-                   if (workUnitDataBase.updateWorkUnitInformation(name,Integer.parseInt(idWorkUnit))!=0){
-                       System.out.println("update was successfully");
-                   }else {
-                       System.out.println("update was failed !");
+                if (CheckValidation.checkString(name)) {
+                    if (workUnitDataBase.updateWorkUnitInformation(name, Integer.parseInt(idWorkUnit)) != 0) {
+                        System.out.println("update was successfully");
+                    } else {
+                        System.out.println("update was failed !");
 
-                   }
-                }else {
+                    }
+                } else {
                     System.out.println("enter valid name please !");
 
                 }
-            }else {
+            } else {
                 System.out.println("work unit not found !");
 
             }
-        }else {
+        } else {
             System.out.println("enter number id please !");
 
         }
     }
 
-    public static void showWorkUnit() {
-
+    public static void showWorkUnit() throws SQLException {
+        workUnitDataBase.showWorkUnit();
     }
 
-    public static void showEmployee() {
+    public static void showEmployee() throws SQLException {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("id work unit :");
+        String idWorkUnit = scanner.next();
+        if (CheckValidation.checkInt(idWorkUnit)) {
+            if (workUnitDataBase.searchWorkUnitId(Integer.parseInt(idWorkUnit))) {
+                employeeDataBase.showEmployee(Integer.parseInt(idWorkUnit));
+            }else {
+                System.out.println("work unit not found !");
+            }
+        }else {
+            System.out.println("enter number please !");
 
+        }
     }
 }
