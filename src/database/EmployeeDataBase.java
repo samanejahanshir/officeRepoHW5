@@ -15,7 +15,7 @@ public class EmployeeDataBase {
     public int save(Employee employee) throws SQLException {
         if (connection != null) {
             Statement statement = connection.createStatement();
-            String sqlQuery = String.format("INSERT INTO employee (first_name , last_name , personal_number , birth_date , id_work_unit) VALUES (%s,%s,%s,%s,%d)",
+            String sqlQuery = String.format("INSERT INTO employee (first_name , last_name , personal_number , birth_date , id_work_unit) VALUES ('%s','%s','%s','%s',%d)",
                      employee.getFirstName(), employee.getLastName(), employee.getPersonalId(), employee.getBirthDate(), employee.getWorkUnit_id());
             int i = statement.executeUpdate(sqlQuery);
             return i;
@@ -28,7 +28,7 @@ public class EmployeeDataBase {
     public int updateEmployeeInformation(Employee employee) throws SQLException {
         if (connection != null) {
             Statement statement = connection.createStatement();
-            String sqlQuery = String.format("UPDATE employee SET first_name=%s , last_name=%s WHERE id_employee=%d", employee.getFirstName(), employee.getLastName(), employee.getId());
+            String sqlQuery = String.format("UPDATE employee SET first_name='%s' , last_name='%s' WHERE id_employee=%d", employee.getFirstName(), employee.getLastName(), employee.getId());
             int i = statement.executeUpdate(sqlQuery);
             return i;
 
