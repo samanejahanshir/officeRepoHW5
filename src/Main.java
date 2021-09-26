@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 public class Main {
     static EmployeeDataBase employeeDataBase;
+    static WorkUnit[] workUnits = new WorkUnit[50];
 
     static {
         try {
@@ -91,17 +92,27 @@ public class Main {
         if (CheckValidation.checkString(firstName) && CheckValidation.checkString(lastName) && CheckValidation.checkInt(personalId) &&
                 CheckValidation.checkInt(year) && CheckValidation.checkInt(month) && CheckValidation.checkInt(day)) {
             MyDate myDate = new MyDate(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
-            if (myDate.isValidDate(myDate.getYear(), myDate.getMonth(), myDate.getDay()) && workUnitDataBase.searchWorkUnitId(Integer.parseInt(workUnitId))){
-                Employee employee=new Employee(firstName,lastName,personalId,myDate.toString(),Integer.parseInt(workUnitId));
-                int index=employeeDataBase.save(employee);
-                if(index!=0){
+            if (myDate.isValidDate(myDate.getYear(), myDate.getMonth(), myDate.getDay()) && workUnitDataBase.searchWorkUnitId(Integer.parseInt(workUnitId))) {
+                Employee employee = new Employee(firstName, lastName, personalId, myDate.toString(), Integer.parseInt(workUnitId));
+                int id = employeeDataBase.save(employee);
+                if (id != 0) {
+                    employee.setId(id);
                     System.out.println("add employee was successfully");
+                    workUnits = workUnitDataBase.returnWorkUnit();
+                    for(int i=0;i<workUnits.length;i++){
+                        if(workUnits[i].getId()==Integer.parseInt(workUnitId)){
+                            workUnits[i].setIdEmployees(id+"");
+                            workUnitDataBase.updateListEmployee(workUnits[i]);
+                            break;
+                        }
+                    }
 
-                }else {
+
+                } else {
                     System.out.println("add employee was failed !");
                 }
-            }else {
-                System.out.println(!(myDate.isValidDate(myDate.getYear(), myDate.getMonth(), myDate.getDay()))?"date is not valid !":"work unit is not found");
+            } else {
+                System.out.println(!(myDate.isValidDate(myDate.getYear(), myDate.getMonth(), myDate.getDay())) ? "date is not valid !" : "work unit is not found");
 
             }
         } else {
@@ -112,13 +123,56 @@ public class Main {
 
     }
 
-    public static void addWorkUnit() {
+    public static void addWorkUnit() throws SQLException {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("name :");
+        String name = scanner.next();
+        System.out.println("phone number");
+        String phoneNumber = scanner.next();
+        if (CheckValidation.checkString(name) && CheckValidation.checkInt(phoneNumber)) {
+            WorkUnit workUnit = new WorkUnit(name, phoneNumber);
+            int index = workUnitDataBase.save(workUnit);
+            if (index != 0) {
+                System.out.println("add unit was successfully ");
+            } else {
+                System.out.println("add unit was failed ! ");
+            }
+        } else {
+            System.out.println("input is not valid !");
 
+        }
 
     }
 
-    public static void updateEmployee() {
+    public static void updateEmployee() throws SQLException {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("id employee :");
+        String idEmployee = scanner.next();
+        if (CheckValidation.checkInt(idEmployee)) {
+            if (employeeDataBase.searchEmployee(Integer.parseInt(idEmployee))) {
+                System.out.println("first name : ");
+                String firstName = scanner.next();
+                System.out.println("last name : ");
+                String lastName = scanner.next();
+                if(CheckValidation.checkString(firstName)&& CheckValidation.checkString(lastName)) {
+                    if(employeeDataBase.updateEmployeeInformation(firstName,lastName,Integer.parseInt(idEmployee))!=0){
+                        System.out.println(" update employee was successfully");
 
+                    }else {
+                        System.out.println(" update employee was failed !");
+
+                    }
+                }else {
+                    System.out.println("enter current name please !");
+
+                }
+            } else {
+                System.out.println("this employee not found !");
+            }
+
+        }else {
+            System.out.println("enter number please !");
+        }
     }
 
     public static void updateWorkUnit() {
