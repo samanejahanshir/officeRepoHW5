@@ -65,6 +65,21 @@ public class WorkUnitDataBase {
         return null;
     }
 
+    public boolean searchWorkUnitName(String workUnitName) throws SQLException {
+        if (connection != null) {
+            Statement statement = connection.createStatement();
+            String sqlQuery = String.format("SELECT id_work_unit FROM work_unit WHERE name='%s'", workUnitName);
+            ResultSet resultSet = statement.executeQuery(sqlQuery);
+            if (resultSet.next()) {
+                return true;
+            } else {
+                return false;
+
+            }
+        } else {
+            return false;
+        }
+    }
     public boolean searchWorkUnitId(int workUnitId) throws SQLException {
         if (connection != null) {
             Statement statement = connection.createStatement();
@@ -102,9 +117,10 @@ public class WorkUnitDataBase {
             ResultSet resultSet = statement.executeQuery(sqlQuery);
             if (resultSet.next()) {
                 System.out.println("----------  work units  ----------");
+                System.out.println("Id  NameUnit  Phone  listEmployee");
 
                 do{
-                    System.out.println(resultSet.getString(1)+" "+resultSet.getString(2)+" "+resultSet.getString(3)+" "+resultSet.getString(4) );
+                    System.out.println(resultSet.getString(1)+"   "+resultSet.getString(2)+"   "+resultSet.getString(3)+"   "+resultSet.getString(4) );
 
                 }while (resultSet.next());
                 System.out.println("-----------------------------------");
