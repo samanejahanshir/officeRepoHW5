@@ -95,7 +95,11 @@ public class Main {
         if (CheckValidation.checkString(firstName) && CheckValidation.checkString(lastName) && CheckValidation.checkInt(personalId) &&
                 CheckValidation.checkInt(year) && CheckValidation.checkInt(month) && CheckValidation.checkInt(day)) {
             MyDate myDate = new MyDate(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
-            if (myDate.isValidDate(myDate.getYear(), myDate.getMonth(), myDate.getDay()) && workUnitDataBase.searchWorkUnitId(Integer.parseInt(workUnitId))) {
+            if(employeeDataBase.searchEmployee(firstName,lastName,personalId)!=0){
+                System.out.println("this employee is exist in DataBase ");
+
+            }
+           else if (myDate.isValidDate(myDate.getYear(), myDate.getMonth(), myDate.getDay()) && workUnitDataBase.searchWorkUnitId(Integer.parseInt(workUnitId))) {
                 Employee employee = new Employee(firstName, lastName, personalId, myDate.toString(), Integer.parseInt(workUnitId));
                 int id = employeeDataBase.save(employee);
                 if (id != 0) {
@@ -133,14 +137,20 @@ public class Main {
         System.out.println("phone number");
         String phoneNumber = scanner.next();
         if (CheckValidation.checkString(name) && CheckValidation.checkInt(phoneNumber)) {
-            WorkUnit workUnit = new WorkUnit(name, phoneNumber);
-            int index = workUnitDataBase.save(workUnit);
-            if (index != 0) {
-                System.out.println("add unit was successfully ");
+            if (workUnitDataBase.searchWorkUnitName(name)) {
+                System.out.println("work unit with this name is exist ");
+
             } else {
-                System.out.println("add unit was failed ! ");
+                WorkUnit workUnit = new WorkUnit(name, phoneNumber);
+                int index = workUnitDataBase.save(workUnit);
+
+                if (index != 0) {
+                    System.out.println("add unit was successfully ");
+                } else {
+                    System.out.println("add unit was failed ! ");
+                }
             }
-        } else {
+        }else {
             System.out.println("input is not valid !");
 
         }
