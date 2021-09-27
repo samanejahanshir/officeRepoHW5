@@ -48,9 +48,10 @@ public class EmployeeDataBase {
             ResultSet resultSet = statement.executeQuery(sqlQuery);
             if (resultSet.next()) {
                 System.out.println("---------- Employees in work unit "+workUnitId+" ----------");
+                System.out.println("Id  FName  LName  PNum  BirthDate  WorkUnit");
 
                 do {
-                    System.out.println(resultSet.getString(1)+" "+resultSet.getString(2)+" "+resultSet.getString(3)+" "+resultSet.getString(4)+" ");
+                    System.out.println(resultSet.getString(1)+"   "+resultSet.getString(2)+"   "+resultSet.getString(3)+"   "+resultSet.getString(4)+"   " +resultSet.getString(5)+"   "+resultSet.getString(6));
                 } while (resultSet.next());
                 System.out.println("----------------------------------------------");
 
