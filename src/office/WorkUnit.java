@@ -33,16 +33,16 @@ public class WorkUnit {
     public String getIdEmployees() {
         String listEmployees = "";
         for (int i = 0; i < indexEmployees; i++) {
-            listEmployees += idEmployees[i]+ ",";
+            listEmployees += idEmployees[i] + ",";
         }
         return listEmployees;
     }
-    public void setIdEmployees(String listEmployee){
-        String [] temp =listEmployee.split(",");
-        for(int i=0; i<temp.length;i++){
-            this.idEmployees[indexEmployees++]=temp[i];
-        }
 
+    public void setIdEmployees(String listEmployee) {
+        String[] temp = listEmployee.split(",");
+        for (int i = 0; i < temp.length; i++) {
+            this.idEmployees[indexEmployees++] = temp[i];
+        }
 
 
     }

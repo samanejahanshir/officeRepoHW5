@@ -11,7 +11,7 @@ public class CheckValidation {
 
     public static boolean checkString(String inputString) {
         for (int i = 0; i < inputString.length(); i++) {
-            if (!Character.isLetter(inputString.charAt(i)) && inputString.charAt(i)!=' ') {
+            if (!Character.isLetter(inputString.charAt(i)) && inputString.charAt(i) != ' ') {
                 return false;
             }
         }

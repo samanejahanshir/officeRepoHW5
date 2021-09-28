@@ -1,13 +1,14 @@
 package office;
 
 import database.EmployeeDataBase;
+
 public class Employee {
-    private  int id;
-    private  String firstName;
-    private  String lastName;
-    private  String personalId;
-    private  String birthDate;
-    private  int workUnit_id;
+    private int id;
+    private String firstName;
+    private String lastName;
+    private String personalId;
+    private String birthDate;
+    private int workUnit_id;
 
     public void setId(int id) {
         this.id = id;

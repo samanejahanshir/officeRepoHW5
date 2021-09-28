@@ -11,7 +11,7 @@ public class Main {
             System.out.println("------------------ Menu -----------------");
             System.out.println("1.add employee\n2.add work unit\n3.update employee\n4.update work unit\n5.show work unit\n6.show employee\n7.exit");
             System.out.println("-----------------------------------------");
-            Office office=new Office();
+            Office office = new Office();
             Scanner scanner = new Scanner(System.in);
             String selectNumberMenu = scanner.next();
             if (CheckValidation.checkInt(selectNumberMenu)) {
